@@ -64,6 +64,7 @@ while($row=mysqli_fetch_array($kayit)){
     <div>
     <h2>$ders[dersin_ady]  ($sozler)</h2>
     <a href='girish.php?value=$row[ders]'>Derse gec</a>
+    <a href='delete_lesson_from_favourites.php?id=$row[id]'>Halanlarymdan poz</a>
     </div>
     </li>";
 }

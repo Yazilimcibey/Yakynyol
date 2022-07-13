@@ -85,7 +85,10 @@ include 'includes/header.php';
         </li>
         ";
     }}
+
     ?></ul><?php
+        echo "
+        <a href='delete_arakesme_from_favourites.php?id=$bilgi5[id]'>Halanlarymdan Aýyr</a>";
         if (isset($_SESSION['username']) and $_SESSION['teswir']=='hawa') {
           echo "<br><br>
           <form action='add_comment_for_ad.php?id=$bilgi[id]&value=salam' method='post'>
@@ -103,6 +106,7 @@ include 'includes/header.php';
     }
         echo "
         </div>
+
         <button id='button' class='button $bilgi[id]' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget($bilgi[id])'>Doly gorkez</button>
         </li>
         ";

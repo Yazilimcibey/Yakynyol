@@ -1,0 +1,1 @@
+<?php $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanamadim'); ?>

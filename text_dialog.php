@@ -147,7 +147,6 @@ echo "<div><h2 style='width:auto;display:inline'>$kontrol[dersin_ady]</h2><p sty
         ";
     }
 ?>
-    <a href='view_comments.php?id=$sapagy'>Teswirleri gor</a>
     <script>
   for (var i of inlisceler){
         inlisceler2.push(i);

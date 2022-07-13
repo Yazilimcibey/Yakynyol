@@ -5,6 +5,7 @@
     <meta name="referrer" content="origin-when-cross-origin">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="images/favicon.png">
     <meta name="description" content="Discover the best website designs of the world. Awwwards recognizes the talent and effort of the best designers, web developers and digital agencies.">
         <meta name="theme-color" content="#3ea094">
         <title>    Ýakyn ýol
@@ -16,7 +17,7 @@
         <?php if(isset($gerek)){
         echo "<link rel='stylesheet' href='css/login-style.css'>";}
         @session_start();
-        $baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
+        $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanamadim');
 
         ?>
         <link rel="stylesheet" href="css/style.css">
@@ -31,14 +32,14 @@
         ';} ?>
     </script>
     <!-- End Google Tag Manager -->
-        <script src="./Awwwards - Website Design Inspiration_files/runtime.5ddff000.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/9755.ad58b337.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/6928.994e9a84.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/566.7d7cc9c1.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/grid.b2cb09c6.js.Без названия" defer=""></script>
-<script type="text/javascript" src="./Awwwards - Website Design Inspiration_files/be.js.Без названия"></script><script src="./Awwwards - Website Design Inspiration_files/f(1).txt"></script></head>
 
 <body class="">
     <div class="eu-location" data-eu="0"></div>
         <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PXD9JT"
-                      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- <script src="./Awwwards - Website Design Inspiration_files/runtime.5ddff000.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/9755.ad58b337.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/6928.994e9a84.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/566.7d7cc9c1.js.Без названия" defer=""></script><script src="./Awwwards - Website Design Inspiration_files/grid.b2cb09c6.js.Без названия" defer=""></script>
+
+<script type="text/javascript" src="./Awwwards - Website Design Inspiration_files/be.js.Без названия"></script><script src="js/f(1).txt"></script></head> -->
+
     <!-- End Google Tag Manager (noscript) -->
 
     <div class="wrapper ">
@@ -50,7 +51,7 @@
                 <span class="link-underlined js-nav-menu" data-menu-id="menu-lang">English</span>
             </div>
             <div class="pull-right">
-                <div class="bt-close js-close-menu text-uppercase">close</div>
+                <div class="bt-close js-close-menu text-uppercase" onclick='closeMenu()'>close</div>
             </div>
         </div>
         <ul class="menu active" data-menu-name="English" data-menu-id="menu-lang" id="menu-main">
@@ -62,11 +63,11 @@
             <li><a href="mugallymlar.php" class="item">Bildirişler</a></li>
             <li>
                 <a href="#" class="item">
-                    Söwda</a>
+                    (Goşmaça)</a>
             </li>
             
         </ul>
-        <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang">
+        <ul class="menu" data-menu-name="BACK" data-menu-id="menu-main" id="menu-lang" onclick="menuLang()">
 
                             <li lang="en" class="js-change-locale active" data-locale="en">
                     <span class="item">
@@ -76,11 +77,6 @@
                             </span>
                                             </span>
                 </li>
-                          
-                          
-                          
-
-            
             <li lang="pt"><span class="item">English <span class="soon">Soon!</span></span></li>
             <li lang="fr"><span class="item">Russian <span class="soon">Potom!</span></span></li>
         </ul>
@@ -90,7 +86,7 @@
 
                     <header id="header">
         <div class="header-main">
-            <div class="box-left">
+            <div class="box-left" onclick="openMenu()">
                 <div class="item bt-menu js-nav-main" data-menu-id="menu-main">
                     <div class="ico-menu">
                         <div class="bar"></div>
@@ -100,7 +96,7 @@
                     <span class="has-tablet">MENU</span>
                 </div>
             </div>
-            <div class="box-right"><?php if(!isset($_SESSION['username'])){ ?>
+            <div class="box-right" onclick='closeMenu()'><?php if(!isset($_SESSION['username'])){ ?>
                 <a href="Sazlamalar.php" id='registerhref'>Register      </a>
                 <?php }else{?>
                     <a href="logout.php" id='registerhref'>Logout      </a>
@@ -115,7 +111,7 @@
                 
      
                             </div>
-            <div class="logo-header">
+            <div class="logo-header" onclick='closeMenu()'>
                 <img src="images/logo.png" alt="Bolanok" style='width:300px; height:90px;position:relative;top:-35px;'>
                                                 
             </div>
@@ -123,7 +119,50 @@
     </header>
                 
 
-<div class="box-filters fixed seo" id="box-filters-fixed">
+    <script>
+            durum=1;
+        var styleElem = document.head.appendChild(document.createElement("style"));
+        function openMenu(){
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.transform='TranslateX(320px)';
+        d[0].style.position='fixed';
+        styleElem.innerHTML = ".wrapper:before {visibility:visible;opacity:1;}";
+        // d[0].onclick = closeMenu;
+        }
+        function closeMenu() {
+        var d = document.getElementsByClassName('wrapper');
+        d[0].style.position='relative';
+        styleElem.innerHTML = ".wrapper:before {visibility:hidden;opacity:0;}";
+        d[0].style.transform='';  
+        }
+        function menuLang() {
+            var button = document.getElementsByClassName('link-underlined js-nav-menu');
+            var links = document.getElementById('menu-main');
+            var langs = document.getElementById('menu-lang');
+            if(button[0].innerHTML=='English'){
+                links.classList.remove('active');
+                langs.classList.add('active');
+                button[0].innerHTML='BACK';
+            }else{
+                links.classList.add('active');
+                langs.classList.remove('active');
+                button[0].innerHTML='English';
+            }
+        }
+        function sayla(){
+            console.log(durum)
+            openMenu()
+            // if(durum%2==1){
+            //     closeMenu();
+                
+            // }else{
+            //     openMenu()
+            // };
+            durum=durum+1;
+        }
+        </script>
+
+<div class="box-filters fixed seo" id="box-filters-fixed" onclick='closeMenu()'>
     <div class="container">
         <div class="box-left">
             <ul class="menu-filters js-filters-new">
@@ -191,11 +230,11 @@
         </div>
             </div>
     </div>
-            <section id="content" class="">
+            <section id="content" class="" onclick="closeMenu()">
             <div style='float:left; width:80%'>
 <div class="container2" style="background-color: #c2cbed;
-            width: <?php if(isset($ginlik)){echo "100%;padding:20px;";}else if(isset($ginlik2)){echo "100%;padding:20px;";}else{echo '100%;';} ?>
-            height: <?php if(isset($boy)){echo "auto;";}else if(isset($boy2)){echo 'auto;';}else{echo 'auto;';} ?>
+            width: <?php if(isset($ginlik)){echo '100%;padding:20px;';}else if(isset($ginlik2)){echo '100%;padding:20px;';}else{echo '100%;';} ?>
+            height: <?php if(isset($boy)){echo 'auto;';}else if(isset($boy2)){echo 'auto;';}else{echo 'auto;';} ?>
             position: relative; 
             margin:auto;
             top:0vh;

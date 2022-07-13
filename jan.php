@@ -137,16 +137,16 @@ include 'includes/header.php';
     while ($bilgi2=mysqli_fetch_array($query)) {
         echo "
         <li style='border:4px solid green;margin-top:5px; text-align:left;border-radius:15px; padding:10px'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
-            echo "<a href='delete_comments.php?id=$bilgi2[id]' style='float:right'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$bilgi2['ulanyjy_ady']){
-                echo "<a href='delete_comments.php?id=$bilgi2[id]' style='float:right'>Teswiri poz</a>";} echo "
+            echo "<a href='delete_comments.php?id=$bilgi2[id]&value=2' style='float:right'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$bilgi2['ulanyjy_ady']){
+                echo "<a href='delete_comments.php?id=$bilgi2[id]&value=2' style='float:right'>Teswiri poz</a>";} echo "
         <h4 style='padding:5px;margin-bottom:-15px'>$bilgi2[ulanyjy_ady]</h4>
         <p style='padding:5px; margin-bottom:0px'>$bilgi2[text]</p>";
         $kontrol2=mysqli_query($baglan,"select * from teswirler where kat=2 and teswir_id='$bilgi2[id]'");
         echo "<div style='display:flex;flex-direction:column;justify-content:right'>";
         while ($row=mysqli_fetch_array($kontrol2)) {
             echo "<div style='border:1px solid green; text-align:right;border-radius:15px; padding:10px;'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
-                echo "<a href='delete_comments.php?id=$row[id]' style='float:left'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$row['ulanyjyady']){
-                    echo "<a href='delete_comments.php?id=$row[id]' style='float:left'>Teswiri poz</a>";}    
+                echo "<a href='delete_comments.php?id=$row[id]&value=2' style='float:left'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$row['ulanyjyady']){
+                    echo "<a href='delete_comments.php?id=$row[id]&value=2' style='float:left'>Teswiri poz</a>";}    
                 echo "<h4 style='padding:5px;margin-bottom:-15px'>$row[ulanyjyady]</h4>
             <p style='padding:5px; margin-bottom:0px'>$row[teswir]</p></div>";
         }if (isset($_SESSION['username']) and $_SESSION['teswir']=='hawa') {

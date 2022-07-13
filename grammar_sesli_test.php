@@ -153,7 +153,6 @@ if (isset($_SESSION['username'])) {
     ";
 }?>
 
-    <a href='view_comments.php?id=$sapagy'>Teswirleri gor</a>
     <script>
     for (var i of inlisceler){
         inlisceler2.push(i);
