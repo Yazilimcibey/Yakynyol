@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -31,7 +33,6 @@ include 'includes/header.php';
 ?>
 <ul>
     <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from teswirler where dersi='$sapagy'");
     while ($bilgi=mysqli_fetch_array($kontrol)) {
         echo "

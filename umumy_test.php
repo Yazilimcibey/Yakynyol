@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 $index='';
 $sazlama='';
@@ -30,7 +32,7 @@ $dokuzynjysoz='Text';
 
 $gerek='';
 
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
+
 
 include 'includes/header.php';
 
@@ -46,7 +48,7 @@ if (isset($_POST['sapak'])) {
 }
 
 $kontrol=mysqli_fetch_array(mysqli_query($baglan,"select * from dersler where id='$sapagy'"));
-echo "<div><h2 style='width:auto;display:inline;float:left;font-size:30px'>$kontrol[dersin_ady]</h2><p style='float:right'> Video sapaklary  <a href=$kontrol[youtube]>$kontrol[soz1]</a>   <a href=$kontrol[instagram]>$kontrol[soz2]</a>   <a href=$kontrol[imo]>$kontrol[soz3]</a></p><br><br><br></div>";
+echo "<div><h2 style='width:auto;display:inline'>$kontrol[dersin_ady]</h2><p style='float:right'> Video sapaklary  <a href=$kontrol[youtube]>$kontrol[soz1]</a>   <a href=$kontrol[instagram]>$kontrol[soz2]</a>   <a href=$kontrol[imo]>$kontrol[soz3]</a></p><br><br><br></div>";
 
 
 ?>
@@ -98,7 +100,7 @@ echo "<div><h2 style='width:auto;display:inline;float:left;font-size:30px'>$kont
         }?>
         <ul>
         <?php 
-        $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
+        
         $kontrol=mysqli_query($baglan,"select * from teswirler where dersi='$sapagy' and kat=0");
         while ($bilgi=mysqli_fetch_array($kontrol)) {
             echo "
@@ -225,6 +227,9 @@ function jogapBarla(jogap){
     if (dj==jogap){
         var src=document.getElementById('src');
         var y=document.getElementById('y');
+        if(aydym[id][6]==' '){
+            aydym[id] = aydym[id].replace(' ','');
+        }
         src.src=aydym[id];
         y.load();
         y.play();
@@ -288,13 +293,12 @@ jogap3.innerHTML=inlisceler3[id3]+'<br>'+gosmaca2[id3];
         } 
 var src=document.getElementById('src');
 var y=document.getElementById('y');
+    console.log(music[id])
     if(music[id][6]==' '){
         music[id] = music[id].replace(' ','');
-        console.log(music[id]);
     }
 music[id]=music[id].replace('?','');
 src.src=music[id];
-console.log(music);
 y.load();
 y.play();        
 }
@@ -306,7 +310,6 @@ say.addEventListener('click',function(event){
     var y=document.getElementById('y');
     if(music[id][6]==' '){
         music[id] = music[id].replace(' ','');
-        console.log(music[id]);
     }
     src.src=music[id];
     y.load();

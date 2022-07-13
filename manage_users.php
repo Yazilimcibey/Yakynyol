@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index=' ';
@@ -39,6 +41,10 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
 
 $gerek='';
 
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
+
 include 'includes/header.php';
 
 
@@ -52,7 +58,6 @@ include 'includes/header.php';
     </tr>";
     ?>
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
         $kontrol=mysqli_query($baglan,"select * from ulanyjylar");
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)){

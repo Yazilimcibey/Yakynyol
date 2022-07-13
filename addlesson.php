@@ -1,3 +1,4 @@
+<?php include 'includes/conn.php'; ?>
 
 <?php 
 session_start();
@@ -37,13 +38,14 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
   $sekizinjilink='users_passive.php';
 }
 
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
 
 include 'includes/header.php';
 
 ?>
 <?php
-
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 @$gornus=$_POST['sapak'];
 if ($gornus=='video') {

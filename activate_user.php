@@ -1,5 +1,6 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 $id=$_GET['id'];
 $sert=$_GET['value'];

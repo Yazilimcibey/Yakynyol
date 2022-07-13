@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -39,6 +41,11 @@ $sekizinjilink='rugsatbermedikler.php';
     if($_SESSION['username']!='admin'){
   header("location:profil.php");
 }
+
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
+
 include 'includes/header.php';
 
 ?>
@@ -49,7 +56,6 @@ include 'includes/header.php';
 
 <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama where aktif=0 order by id DESC");
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  

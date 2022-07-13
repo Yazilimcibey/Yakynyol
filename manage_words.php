@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -34,6 +36,11 @@ if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
     $yedinjisoz='Reklama gos';
 $yedinjilink='reklamagosadmin.php';
     }
+
+    if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
+
 include 'includes/header.php';
 
 if($_GET['value']!='text'){
@@ -76,7 +83,6 @@ if($_GET['value']!='text'){
     }
     ?>
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     if(isset($_GET['value'])){
     if($_GET['value']=='grammar'){
         $kontrol=mysqli_query($baglan,"select * from inlisce_text where sapagy=$_SESSION[sapagy]");
@@ -108,7 +114,7 @@ else{
             <td>$bilgi[gosmaca3]</td>
             <td>$bilgi[gosmaca1]</td>
             <td>$bilgi[gosmaca2]</td>";echo "
-            <td><a href='delete_word.php?id=$bilgi[id]&action=$word&action2=duzet'>Duzet</a></td>
+            <td><a href='update_word.php?id=$bilgi[id]&action=$word'>Duzet</a></td>
             <td><a href='delete_word.php?id=$bilgi[id]&action=$word&action2=poz'>Poz</a></td>
         </tr>
         ";
@@ -123,7 +129,7 @@ else{
             <td>$bilgi[gosmaca2]</td>
             <td>$bilgi[$key]</td>
             <td>$bilgi[yalnystext]</td>
-            <td><a href='delete_word.php?id=$bilgi[id]&action=$word&action2=duzet'>Duzet</a></td>
+            <td><a href='update_word.php?id=$bilgi[id]&action=$word&action2=duzet'>Duzet</a></td>
             <td><a href='delete_word.php?id=$bilgi[id]&action=$word&action2=poz'>Poz</a></td>
         </tr>
         ";

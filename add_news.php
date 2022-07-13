@@ -1,5 +1,7 @@
+
+<?php include 'includes/conn.php'; ?>
+
 <?php
-$baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
 
 $ad=$_POST['name_news'];
 $news=$_POST['news'];

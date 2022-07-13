@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index=' ';
@@ -49,8 +51,6 @@ if (isset($_SESSION['username'])) {
 }
 
 include 'includes/header.php';
-
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 $gerek='';
 ?>

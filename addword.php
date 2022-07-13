@@ -1,5 +1,5 @@
+<?php include 'includes/conn.php'; ?>
 <?php
-$baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
 
 $turkmence=$_POST['turkmence'];
 $beyleki=$_POST['beylekidil'];

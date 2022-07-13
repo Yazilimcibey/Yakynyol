@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -36,7 +38,6 @@ $gerek='';
 
 $boy='400px';
 
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 if (isset($_POST['sapak'])) {
     $sapagy=$_POST['sapak'];
@@ -60,7 +61,9 @@ if (!isset($_SESSION['username'])) {
         header('location:Sazlamalar.php');
     }
 }
-
+if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
+    echo "<a href='manage_words.php?value=text2'>Teksti dolandyr</a>";  
+}
 ?>
 <script>
     var inlisceler=[];turkmenceler=[];id=[];inlisceler2=[];turkmenceler2=[];music2=[];
@@ -80,7 +83,7 @@ if (!isset($_SESSION['username'])) {
         <div style='border:1px solid black;width:93%;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:auto;text-size:16px; overflow:hidden'>
         <li>
         
-        <img src='$bilgi[surat_inlisce]' class='$bilgi[id]' onclick='salam($bilgi[id])' width=40% style='float:right;height: 200px;'>
+        <img src='$bilgi[surat_inlisce]' class='$bilgi[id]' onclick='salam($bilgi[id])' width=40% style='float:right;height: 40%;'>
         <p>$bilgi[inlisce]</p><br><br>
         <p class='$bilgi[id]'></p><br><br>
         <audio id='$bilgi[id]'><source src='$bilgi[ses]'>Bolanok</audio>";?>

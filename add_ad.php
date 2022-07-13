@@ -37,12 +37,16 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
   $sekizinjilink='users_passive.php';
 }
 
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
+
 include 'includes/header.php';
 
 ?>
 <form action="reklama_gos.php" method="post" enctype='multipart/form-data' style='padding:20px;text-align:center'>
         <input type="file" name='surat' style='background-color:white; border-radius:10px;margin:auto'><br><br>
-        <span style='font'>Reklaman linkini ýaz</span><br><br>
+        <span>Reklaman linkini ýaz</span><br><br>
         <input type="text" name="link" style='border-radius:10px'><br><br>
         <button type="submit" id='button'>Goş</button>
         </form>

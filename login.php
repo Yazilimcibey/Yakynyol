@@ -1,7 +1,7 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php
 session_start();
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
-
 $ad=$_POST['ulanyjy_ady'];
 $sifre=$_POST['parol'];
 $parola=md5($sifre);
@@ -25,7 +25,7 @@ if (mysqli_num_rows($kontrol)>0) {
 	// echo $bilgi;
 	header('Location:profil.php');
 }else{
-	echo "basarisiz";
+	header("Location:Sazlamalar.php");
 }
 ?>
 

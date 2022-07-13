@@ -7,7 +7,19 @@
     margin-top: 20px;
     padding:4px 9px;
 }
+
+.img{
+  width:40%;
+  height:250px;
+}
+
+@media only screen and (max-width: 768px){
+  .img{
+    width: 100%;
+  }
+}
 </style>
+<?php include 'includes/conn.php'; ?>
 
 <?php 
 session_start();
@@ -58,13 +70,11 @@ include 'includes/header.php';
 
   <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
-
     $sayfa=@intval($_GET['s']);
     if(!$sayfa){$sayfa=1;}
-    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from reklamalar_uzyn"));
+    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from reklamalar_uzyn where kategoriya=4"));
 
-    $limit=10;
+    $limit=5;
     $sayfa_sayisi=ceil($toplam/$limit);
     if($sayfa>$sayfa_sayisi){$sayfa=1;}
     $goster=$sayfa*$limit-$limit;
@@ -161,7 +171,34 @@ include 'includes/header.php';
         
         ";
     }echo "</ul>";
+    $gorunen = 2;
+if ($sayfa>10) {
+  $sonraki = $sayfa-10;
+  echo "<div><a href = 'internet.php?s=$sonraki'>-10</a></div>";
+}
+      if($sayfa > 1){
+        $onceki = $sayfa -1;
+        echo "<div> <a href='internet.php?s=$onceki'>Yza</a> </div>";
+      }
 
+for ($i=$sayfa-$gorunen; $i < $sayfa+$gorunen+1; $i++) { 
+  if($i>0 and $i <=$sayfa_sayisi){
+    if($i==$sayfa){
+    echo "<div><span>$i</span></div>";
+  }else{
+    echo "<div><a href='internet.php?s=$i'>$i</a></div>";
+  }}
+}
+  
+if ($sayfa != $sayfa_sayisi ) {
+  $sonraki = $sayfa+1;
+  echo "<div><a href = 'internet.php?s=$sonraki'>One</a></div>";
+}
+
+if ($sayfa != $sayfa_sayisi and $sayfa_sayisi>=$sayfa+10) {
+  $sonraki = $sayfa+10;
+  echo "<div><a href = 'internet.php?s=$sonraki'>+10</a></div>";
+}
       
 
     ?>

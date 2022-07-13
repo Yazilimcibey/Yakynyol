@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -9,13 +11,13 @@ $mugallym=' id=duzgun';
 $boy2='';
 $ginlik='';
 
-$birinjilink='#';
+$birinjilink='mugallymlar.php';
 $ikinjilink='onumcilik_saytlary.php';
 $ucunjilink='sowda_saytlary.php';
 $dordunjilink='okuw_saytlary.php';  
 $basinjilink='habar_saytlary.php';
 
-$dokuzynjy='id=leftbarcurrent';
+$sekizinji='id=leftbarcurrent';
 
 $birinjisoz='Ahlisi';
 $ikinjisoz='Onumcilik saytlary';
@@ -49,7 +51,6 @@ include 'includes/header.php';
 
 <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama where aktif=3 order by id DESC");
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  

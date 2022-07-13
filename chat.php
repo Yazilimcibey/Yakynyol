@@ -17,6 +17,7 @@
     }
     }
 </style>
+<?php include 'includes/conn.php'; ?>
 
 <?php 
 $fff='';
@@ -57,7 +58,6 @@ $gerek='';
 
 $boy='400px';
 
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 if (isset($_POST['sapak'])) {
     $sapagy=$_POST['sapak'];
@@ -132,7 +132,6 @@ if (!isset($_SESSION['username'])) {
     				
     <ul>
     <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from teswirler where dersi='$sapagy' and kat=0");
     while ($bilgi=mysqli_fetch_array($kontrol)) {
         echo "

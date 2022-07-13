@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -9,7 +11,7 @@ $mugallym=' id=duzgun';
 $boy2='';
 $ginlik='';
 
-$birinjilink='mugallymlar.php';
+$birinjilink='#';
 $ikinjilink='onumcilik_saytlary.php';
 $ucunjilink='sowda_saytlary.php';
 $dordunjilink='okuw_saytlary.php';  
@@ -45,17 +47,26 @@ include 'includes/header.php';
 
 <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
-    $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama where aktif=1 and category='habar' order by rand()");
+    $sayfa=@intval($_GET['s']);
+    if(!$sayfa){$sayfa=1;}
+    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from ulanyjy_reklama WHERE aktif=1 AND category='habar'"));
+
+    $limit=5;
+    $sayfa_sayisi=ceil($toplam/$limit);
+    if($sayfa>$sayfa_sayisi){$sayfa=1;}
+    $goster=$sayfa*$limit-$limit;
+    $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama WHERE aktif=1 AND category='habar' order by id DESC limit $goster,$limit");  
+
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  
       echo "
         <div id=$bilgi[id] style='border:1px solid black;padding:10px;margin:20px;margin-top:-5px; border-radius:20px;height:200px;text-size:16px; overflow:hidden'>
         <li>
         <img src='$bilgi[surat]' width=300px height=200px style='float:right;height: 200px;'>
+        <h6>$bilgi[date]</h6>
         <p>$bilgi[text]</p>
         <a href='$bilgi[link]'>$bilgi[link]</a><br><br>";
-        $query=mysqli_query($baglan,"select * from teswirler_ulanyjy_reklama where reklama=$bilgi[id]");?>
+        $query=mysqli_query($baglan,"select * from teswirler_ulanyjy_reklama where reklama=$bilgi[id] and aktif=0");?>
         <ul style=' margin-top:110px'>
     <?php 
     while ($bilgi2=mysqli_fetch_array($query)) {
@@ -83,7 +94,7 @@ include 'includes/header.php';
         </li>
         ";
     }}
-    ?><?php
+    ?></ul><?php
         if (isset($_SESSION['username']) and $_SESSION['teswir']=='hawa') {
           echo "<br><br>
           <form action='add_comment_for_ad.php?id=$bilgi[id]&value=salam' method='post'>
@@ -94,24 +105,58 @@ include 'includes/header.php';
       }
       if (isset($_SESSION['username'])){
         echo "
-        <a href='addtofavorite.php?id=$bilgi[id]'>Halanlaryma gos</a>
+        <a href='addtofavorite.php?id=$bilgi[id]&w=0'>Halanlaryma gos</a>
         ";
     }
     if (isset($_SESSION['username']) and $_SESSION['username']=='admin'){
         echo "
         <a href='active_ads.php?id=$bilgi[id]&value=2'>Reklamany pos</a>
+        
         ";
     }
         echo "
         <h4>Awtory: $bilgi[ulanyjy_ady]</h4>
-        </div></div>
+        </div>
         <button id='button' class='button $bilgi[id]' style='border-radius:10px; height:30px; line-height:0px;margin:auto; margin-top:-10px; margin-bottom:20px; width:80%;' onclick='uytget($bilgi[id])'>Doly gorkez</button>
         </li>
         ";
         
     }
+    ?></ul> 
 
-    ?></ul>   
+<?php
+
+$gorunen = 2;
+if ($sayfa>10) {
+  $sonraki = $sayfa-10;
+  echo "<div><a href = 'habar_saytlary.php?s=$sonraki'>-10</a></div>";
+}
+      if($sayfa > 1){
+        $onceki = $sayfa -1;
+        echo "<div> <a href='habar_saytlary.php?s=$onceki'>Yza</a> </div>";
+      }
+
+for ($i=$sayfa-$gorunen; $i < $sayfa+$gorunen+1; $i++) { 
+  if($i>0 and $i <=$sayfa_sayisi){
+    if($i==$sayfa){
+    echo "<div><span>$i</span></div>";
+  }else{
+    echo "<div><a href='habar_saytlary.php?s=$i'>$i</a></div>";
+  }}
+}
+  
+if ($sayfa != $sayfa_sayisi ) {
+  $sonraki = $sayfa+1;
+  echo "<div><a href = 'habar_saytlary.php?s=$sonraki'>One</a></div>";
+}
+
+if ($sayfa != $sayfa_sayisi and $sayfa_sayisi>=$sayfa+10) {
+  $sonraki = $sayfa+10;
+  echo "<div><a href = 'habar_saytlary.php?s=$sonraki'>+10</a></div>";
+}
+?>
+    
+
     <script>
         durum=3;
         function uytget(n) {

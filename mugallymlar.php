@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -45,16 +47,16 @@ include 'includes/header.php';
 
 <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
+
     $sayfa=@intval($_GET['s']);
     if(!$sayfa){$sayfa=1;}
-    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from reklamalar_uzyn"));
+    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from ulanyjy_reklama WHERE aktif=1 "));
 
-    $limit=10;
+    $limit=5;
     $sayfa_sayisi=ceil($toplam/$limit);
     if($sayfa>$sayfa_sayisi){$sayfa=1;}
     $goster=$sayfa*$limit-$limit;
-    $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama order by id DESC limit $goster,$limit");  
+    $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama WHERE aktif=1 order by id DESC limit $goster,$limit");  
 
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  
@@ -121,17 +123,40 @@ include 'includes/header.php';
         ";
         
     }
-    $sayfa=@intval($_GET['s']);
-    if(!$sayfa){$sayfa=1;}
-    $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from reklamalar_uzyn"));
+    ?></ul>  
+    
+    <div class="pagination">
+<?php
+    
+$gorunen = 2;
+if ($sayfa>10) {
+  $sonraki = $sayfa-10;
+  echo "<a href = 'mugallymlar.php?s=$sonraki'>-10</a>";
+}
+      if($sayfa > 1){
+        $onceki = $sayfa -1;
+        echo "<a href='mugallymlar.php?s=$onceki'>&laquo;</a>";
+      }
 
-    $limit=10;
-    $sayfa_sayisi=ceil($toplam/$limit);
-    if($sayfa>$sayfa_sayisi){$sayfa=1;}
-    $goster=$sayfa*$limit-$limit;
-    $kontrol=mysqli_query($baglan,"select * from reklamalar_uzyn order by id DESC limit $goster,$limit");  
+for ($i=$sayfa-$gorunen; $i < $sayfa+$gorunen+1; $i++) { 
+  if($i>0 and $i <=$sayfa_sayisi){
+    if($i==$sayfa){
+    echo "<a class='active'>$i</a>";
+  }else{
+    echo "<a href='mugallymlar.php?s=$i'>$i</a>";
+  }}
+}
+  
+if ($sayfa != $sayfa_sayisi ) {
+  $sonraki = $sayfa+1;
+  echo "<a href = 'mugallymlar.php?s=$sonraki'>&raquo;</a>";
+}
 
-    ?></ul>   
+if ($sayfa != $sayfa_sayisi and $sayfa_sayisi>=$sayfa+10) {
+  $sonraki = $sayfa+10;
+  echo "<a href = 'mugallymlar.php?s=$sonraki'>+10</a>";
+}
+?></div>
     <script>
         durum=3;
         function uytget(n) {

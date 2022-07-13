@@ -37,6 +37,9 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
 if (isset($_SESSION['username']) and $_SESSION['username']!='admin') {
   header('location:index.php');
 }
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
 
 include 'includes/header.php';
 

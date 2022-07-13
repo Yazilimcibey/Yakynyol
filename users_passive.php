@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index=' ';
@@ -45,6 +47,9 @@ if(isset($_SESSION['username'])){
   $birinjisoz='Profil';
   $birinjilink='profil.php';
 }
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
 
 include 'includes/header.php';
 
@@ -52,7 +57,6 @@ include 'includes/header.php';
 ?>
   <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from ulanyjylar where aktif=0");
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  

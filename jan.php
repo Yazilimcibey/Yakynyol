@@ -7,7 +7,20 @@
     margin-top: 20px;
     padding:4px 9px;
 }
+
+.img{
+  width:40%;
+  height:250px;
+}
+
+@media only screen and (max-width: 768px){
+  .img{
+    width: 100%;
+  }
+}
+
 </style>
+<?php include 'includes/conn.php'; ?>
 
 <?php 
 session_start();
@@ -58,23 +71,22 @@ include 'includes/header.php';
 
   <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
 
     $sayfa=@intval($_GET['s']);
     if(!$sayfa){$sayfa=1;}
     $toplam=mysqli_num_rows(mysqli_query($baglan,"select * from reklamalar_uzyn"));
 
-    $limit=10;
+    $limit=5;
     $sayfa_sayisi=ceil($toplam/$limit);
     if($sayfa>$sayfa_sayisi){$sayfa=1;}
     $goster=$sayfa*$limit-$limit;
     $kontrol=mysqli_query($baglan,"select * from reklamalar_uzyn order by id DESC limit $goster,$limit");  
 
-    
+
 
     $durum=1;
-    while ($bilgi=mysqli_fetch_array($kontrol)) {  
-      echo "
+    while ($bilgi=mysqli_fetch_array($kontrol)) { echo  " 
+      
         <div id=$bilgi[id] style='border:1px solid black;margin-bottom:20px;border-radius:5px;padding:5px;height:200px;text-size:16px; overflow:hidden'>
         <li style='text-align:center'>
         <img src='$bilgi[surat]' width=100px height=100px class='$bilgi[id]' style='float:right'>
@@ -82,23 +94,30 @@ include 'includes/header.php';
         <div class='$bilgi[id]' style='display:none'>
         <div class='slideshow-container'>
 
-<div class='fade $bilgi[id]'>
+<div class='fade $bilgi[id]'> ";?>
   <div class='numbertext'>1 / 3</div>
-  <img src='$bilgi[surat]' style='width:40%;height:250px'>
+  <img src="<?php echo $bilgi['surat']?>" class='img'>
 </div>
+<div id="myModal" class="modal">
 
-<div class='fade $bilgi[id]' style='display:none'>
+  <span class="close">&times;</span>
+
+  <img class="modal-content" id="img01">
+
+  <div id="caption"></div>
+</div>
+<div class="fade <?php echo $bilgi['id'] ?>" style='display:none'>
   <div class='numbertext'>2 / 3</div>
-  <img src='$bilgi[surat2]' style='width:40%;height:250px'>
+  <img src="<?php echo $bilgi['surat2']?>" class='img'>
 </div>
 
-<div class='fade $bilgi[id]' style='display:none'>
+<div class="fade <?php echo $bilgi['id'] ?>"style='display:none'>
   <div class='numbertext'>3 / 3</div>
-  <img src='$bilgi[surat3]' style='width:40%;height:250px'>
+  <img src="<?php echo $bilgi['surat3']?>" class='img'>
 </div>
 
-<a class='prev' onclick='plusSlides2($bilgi[id],-1)'>&#10094;</a>
-<a class='next' style='background-color:black' onclick='plusSlides2($bilgi[id],1)''>&#10095;</a>
+<a class='prev' onclick="plusSlides2(<?php echo $bilgi['id']; ?>,-1)">&#10094;</a>
+<a class='next' style='background-color:black' onclick="plusSlides2(<?php echo $bilgi['id']?>,1)">&#10095;</a>
 
 </div>
 <br>
@@ -110,13 +129,14 @@ include 'includes/header.php';
 </div>
         
         </div>
+        <?php echo "
         <p>$bilgi[haty]<p>";
         $query=mysqli_query($baglan,"select * from teswirler_uzyn_reklama where reklama=$bilgi[id]");?>
         <ul style='margin-top:200px;'>
     <?php 
     while ($bilgi2=mysqli_fetch_array($query)) {
         echo "
-        <li style='border:1px solid brown; text-align:left;border-radius:15px; padding:10px'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
+        <li style='border:4px solid green;margin-top:5px; text-align:left;border-radius:15px; padding:10px'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
             echo "<a href='delete_comments.php?id=$bilgi2[id]' style='float:right'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$bilgi2['ulanyjy_ady']){
                 echo "<a href='delete_comments.php?id=$bilgi2[id]' style='float:right'>Teswiri poz</a>";} echo "
         <h4 style='padding:5px;margin-bottom:-15px'>$bilgi2[ulanyjy_ady]</h4>
@@ -124,7 +144,7 @@ include 'includes/header.php';
         $kontrol2=mysqli_query($baglan,"select * from teswirler where kat=2 and teswir_id='$bilgi2[id]'");
         echo "<div style='display:flex;flex-direction:column;justify-content:right'>";
         while ($row=mysqli_fetch_array($kontrol2)) {
-            echo "<div style='border:1px solid brown; text-align:right;border-radius:15px; padding:10px;'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
+            echo "<div style='border:1px solid green; text-align:right;border-radius:15px; padding:10px;'>";if(isset($_SESSION['username']) and $_SESSION['username']=='admin'){
                 echo "<a href='delete_comments.php?id=$row[id]' style='float:left'>Teswiri poz</a>";}if(isset($_SESSION['username']) and $_SESSION['username']==$row['ulanyjyady']){
                     echo "<a href='delete_comments.php?id=$row[id]' style='float:left'>Teswiri poz</a>";}    
                 echo "<h4 style='padding:5px;margin-bottom:-15px'>$row[ulanyjyady]</h4>
@@ -163,8 +183,34 @@ include 'includes/header.php';
         ";
     }echo "</ul>";
 
-      
+    $gorunen = 2;
+if ($sayfa>10) {
+  $sonraki = $sayfa-10;
+  echo "<div><a href = 'jan.php?s=$sonraki'>-10</a></div>";
+}
+      if($sayfa > 1){
+        $onceki = $sayfa -1;
+        echo "<div> <a href='jan.php?s=$onceki'>Yza</a> </div>";
+      }
 
+for ($i=$sayfa-$gorunen; $i < $sayfa+$gorunen+1; $i++) { 
+  if($i>0 and $i <=$sayfa_sayisi){
+    if($i==$sayfa){
+    echo "<div><span>$i</span></div>";
+  }else{
+    echo "<div><a href='jan.php?s=$i'>$i</a></div>";
+  }}
+}
+  
+if ($sayfa != $sayfa_sayisi ) {
+  $sonraki = $sayfa+1;
+  echo "<div><a href = 'jan.php?s=$sonraki'>One</a></div>";
+}
+
+if ($sayfa != $sayfa_sayisi and $sayfa_sayisi>=$sayfa+10) {
+  $sonraki = $sayfa+10;
+  echo "<div><a href = 'jan.php?s=$sonraki'>+10</a></div>";
+}
     ?>
     <script>
         durum=3;
@@ -227,5 +273,4 @@ function showSlides(n) {
     </script>
   </ul>    
 <?php include 'includes/footer.php'; ?>
-
 

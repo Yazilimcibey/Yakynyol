@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php
 session_start();
 $index='';
@@ -59,7 +61,6 @@ $keyword=$_POST['keyword'];
 
 include 'includes/header.php';
 
-$baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
 if ($value=='1') {
   $val='text';
   # code...

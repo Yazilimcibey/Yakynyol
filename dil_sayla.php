@@ -43,20 +43,20 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
 include 'includes/header.php';
 ?><div style='height:200px'>
 <form action="choose_lesson.php" method="get" style='float:left;width:100%;text-align:center'>
-<span style='font-size:20px'>Bilyan dilinizi saylan</span><br><br>
+<span style='font-size:20px'>Bilýän diliňizi saýlaň</span><br><br>
 <select name="bilyan_dili" style='border-radius:10px; text-align:center; width:70%; margin:auto'>
-<option value="turkmendili">Turkmen dili</option>
-<option value="inlisdili">Inlis dili</option>
+<option value="turkmendili">Türkmen dili</option>
+<option value="inlisdili">Iňlis dili</option>
 <option value="rusdili">Rus dili</option>
 </select><br><br>
 
-        <span style='font-size:20px'>Owrenjek dilinizi saylan</span><br><br>
+        <span style='font-size:20px'>Öwrenjek dilinizi saýlaň</span><br><br>
         <select name='owrenjekdil' style='border-radius:10px; text-align:center; width:70%; margin:auto'>
-        <option value='turkmendili'>Turkmen dili</option>
-        <option value='inlisdili'>Inlis dili</option>
+        <option value='inlisdili'>Iňlis dili</option>
         <option value='rusdili'>Rus dili</option>
-        <option value='turkdili'>Turk dili</option>
-        <option value='hytaydili'>Hytay dili</option>
+        <option value='turkdili'>Türk dili</option>
+        <option value='hytaydili'>Hytaý dili</option>
+        <option value='turkmendili'>Goşmaça</option>
         </select><br><br>
         <input type='submit' value='Ugrat'  style='width:60%; margin:auto;display:block; border-radius:10px'>
         </form>

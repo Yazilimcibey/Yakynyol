@@ -6,13 +6,13 @@ $sapak='';
 $jan='';
 $mugallym=' id=duzgun';
 
-$birinjilink='#';
+$birinjilink='mugallymlar.php';
 $ikinjilink='onumcilik_saytlary.php';
 $ucunjilink='sowda_saytlary.php';
 $dordunjilink='okuw_saytlary.php';  
 $basinjilink='habar_saytlary.php';
 
-$sekizinji='id=leftbarcurrent';
+$yedinji='id=leftbarcurrent';
 
 $birinjisoz='Ahlisi';
 $ikinjisoz='Onumcilik saytlary';
@@ -33,6 +33,10 @@ $yedinjilink='reklamagosadmin.php';
 $sekizinjisoz='Rugsat bermedikler';
 $sekizinjilink='rugsatbermedikler.php';
     }
+
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
 
 include 'includes/header.php';
 

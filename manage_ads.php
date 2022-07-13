@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index='';
@@ -36,6 +38,11 @@ if (isset($_SESSION['username']) and $_SESSION['username']=='admin') {
     $sekizinjisoz='Passive ulanyjylar';
     $sekizinjilink='users_passive.php';
 }
+
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
+
 include 'includes/header.php';
         echo "
         <table>
@@ -47,8 +54,6 @@ include 'includes/header.php';
     
     ?>
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
-
 $kontrol=mysqli_query($baglan,"select * from reklamalar");
 
     $durum=1;

@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 
@@ -47,13 +49,15 @@ if(isset($_SESSION['username'])){
   $birinjisoz='Profil';
   $birinjilink='profil.php';
 }
+if(!$_SESSION['username']=='admin'){
+    header('Location:Sazlamalar.php');
+}
 
 include 'includes/header.php';
 
 ?>
 <?php
 
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 $kontrol=mysqli_query($baglan,"select * from dersler");
     echo "
     <form action='addword.php' method='post' enctype='multipart/form-data' style='padding:30px;text-align:center'>

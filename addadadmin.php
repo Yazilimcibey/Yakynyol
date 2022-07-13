@@ -1,5 +1,7 @@
+
+<?php include 'includes/conn.php'; ?>
+
 <?php
-$baglan=mysqli_connect('localhost','root','','dil')or die('Baglanamadim');
 
 $kaynak=$_FILES['surat']['tmp_name'];
 $dosyaadi=$_FILES['surat']['name'];

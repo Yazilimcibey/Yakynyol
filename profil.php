@@ -1,3 +1,5 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php 
 session_start();
 $index=' ';
@@ -40,7 +42,6 @@ include 'includes/header.php';
 ?><h3><?php echo $_SESSION['username']; ?></h3>
 <ul style="display:flex; flex-direction:column">
   <?php 
-    $baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
     $kontrol=mysqli_query($baglan,"select * from ulanyjy_reklama where ulanyjy_ady='$_SESSION[username]' order by id DESC");
     $durum=1;
     while ($bilgi=mysqli_fetch_array($kontrol)) {  

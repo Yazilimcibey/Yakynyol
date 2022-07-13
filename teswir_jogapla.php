@@ -1,6 +1,7 @@
+<?php include 'includes/conn.php'; ?>
+
 <?php
 session_start();
-$baglan=mysqli_connect('localhost','root','','dil') or die('Baglanyp bilmedi');
 
 $teswir=$_POST['jogap'];
 $ulad=$_SESSION['username'];
